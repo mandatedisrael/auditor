@@ -30,3 +30,30 @@ services:
         ports:
             - "3000:3000"
         restart: always
+
+    socrate:
+        platform: linux/amd64
+        command: ["pnpm", "start", "--character=./characters/socrate.character.json"]
+        image: socrate-agent:v1
+        stdin_open: true
+        tty: true
+        volumes:
+            - ./data:/app/data
+        environment:
+            - AKASH_API_KEY=
+            - TWITTER_USERNAME=
+            - TWITTER_PASSWORD=
+            - TWITTER_EMAIL=
+            - ELEVENLABS_XI_API_KEY=
+            - ELEVENLABS_MODEL_ID=eleven_multilingual_v2
+            - ELEVENLABS_VOICE_ID=21m00Tcm4TlvDq8ikWAM
+            - ELEVENLABS_VOICE_STABILITY=0.5
+            - ELEVENLABS_VOICE_SIMILARITY_BOOST=0.9
+            - ELEVENLABS_VOICE_STYLE=0.66
+            - ELEVENLABS_VOICE_USE_SPEAKER_BOOST=false
+            - ELEVENLABS_OPTIMIZE_STREAMING_LATENCY=4
+            - ELEVENLABS_OUTPUT_FORMAT=pcm_16000
+            - SERVER_PORT=3000
+        ports:
+            - "3000:3000"
+        restart: always

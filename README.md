@@ -1,91 +1,85 @@
-# Eliza
+# Socrate - Web3 Security AI Agent
 
-## Edit the character files
+Socrate is an AI security consultant specializing in blockchain technology and cryptographic systems. Operating on Twitter/X, Socrate shares real-time insights, analysis, and warnings about Web3 security threats, vulnerabilities, and best practices.
 
-Open `src/character.ts` to modify the default character. Uncomment and edit.
+## Features
 
-### Custom characters
+- Real-time security analysis and threat detection
+- Smart contract vulnerability assessments
+- Blockchain security insights and best practices
+- DeFi exploit analysis and prevention strategies
+- Security incident breakdowns and lessons learned
 
-To load custom characters instead:
-- Use `pnpm start --characters="path/to/your/character.json"`
-- Multiple character files can be loaded simultaneously
+## Configuration
 
-### Add clients
-```
-# in character.ts
-clients: [Clients.TWITTER, Clients.DISCORD],
+### Character Setup
 
-# in character.json
-clients: ["twitter", "discord"]
-```
+The character configuration is defined in two places:
+- `src/character.ts` - Main character definition
+- `characters/socrate.character.json` - Detailed character configuration
 
-## Duplicate the .env.example template
+### Twitter/X Integration
+
+Socrate operates primarily on Twitter/X. To set up:
 
 ```bash
 cp .env.example .env
 ```
 
-\* Fill out the .env file with your own values.
-
-### Add login credentials and keys to .env
+Add your Twitter credentials to `.env`:
 ```
-DISCORD_APPLICATION_ID="discord-application-id"
-DISCORD_API_TOKEN="discord-api-token"
-...
-OPENROUTER_API_KEY="sk-xx-xx-xxx"
-AKASH_API_KEY="your-akash-api-key"
-...
 TWITTER_USERNAME="username"
 TWITTER_PASSWORD="password"
 TWITTER_EMAIL="your@email.com"
 ```
 
-## Install dependencies and start your agent
+### API Configuration
+
+Socrate requires an Akash API key for operation:
+```
+AKASH_API_KEY="your-akash-api-key"
+```
+
+## Installation & Running
 
 ```bash
-pnpm i && pnpm start
+# Install dependencies
+pnpm i
+
+# Start Socrate
+pnpm start
 ```
-Note: this requires node to be at least version 22 when you install packages and run the agent.
 
-## Run with Docker
+Note: Requires Node.js version 22 or higher.
 
-### Build and run Docker Compose (For x86_64 architecture)
+## Docker Deployment
 
-#### Edit the docker-compose.yaml file with your environment variables
+### Standard x86_64 Setup
 
+1. Edit environment variables in `docker-compose.yaml`:
 ```yaml
 services:
-    eliza:
+    socrate:
         environment:
-            - OPENROUTER_API_KEY=blahdeeblahblahblah
+            - AKASH_API_KEY=your-key-here
+            - TWITTER_USERNAME=your-username
+            - TWITTER_PASSWORD=your-password
+            - TWITTER_EMAIL=your@email.com
 ```
 
-#### Run the image
-
+2. Run:
 ```bash
 docker compose up
 ```
 
-### Build the image with Mac M-Series or aarch64
+### M-Series Mac / aarch64
 
-Make sure docker is running.
-
+1. Build the image:
 ```bash
-# The --load flag ensures the built image is available locally
-docker buildx build --platform linux/amd64 -t eliza-starter:v1 --load .
+docker buildx build --platform linux/amd64 -t socrate-agent:v1 --load .
 ```
 
-#### Edit the docker-compose-image.yaml file with your environment variables
-
-```yaml
-services:
-    eliza:
-        environment:
-            - OPENROUTER_API_KEY=blahdeeblahblahblah
-```
-
-#### Run the image
-
+2. Configure `docker-compose-image.yaml` and run:
 ```bash
 docker compose -f docker-compose-image.yaml up
 ```
