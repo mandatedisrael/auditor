@@ -1,4 +1,3 @@
-
 import { Character, ModelProviderName, settings, validateCharacterConfig } from "@elizaos/core";
 import fs from "fs";
 import path from "path";
@@ -64,6 +63,10 @@ export function getTokenForProvider(
     case ModelProviderName.OPENAI:
       return (
         character.settings?.secrets?.OPENAI_API_KEY || settings.OPENAI_API_KEY
+      );
+    case ModelProviderName.AKASH_CHAT_API:
+      return (
+        character.settings?.secrets?.AKASH_API_KEY || settings.AKASH_API_KEY
       );
     case ModelProviderName.LLAMACLOUD:
       return (

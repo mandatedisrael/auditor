@@ -33,6 +33,7 @@ DISCORD_APPLICATION_ID="discord-application-id"
 DISCORD_API_TOKEN="discord-api-token"
 ...
 OPENROUTER_API_KEY="sk-xx-xx-xxx"
+AKASH_API_KEY="your-akash-api-key"
 ...
 TWITTER_USERNAME="username"
 TWITTER_PASSWORD="password"
