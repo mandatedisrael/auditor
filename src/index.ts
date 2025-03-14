@@ -9,6 +9,7 @@ import {
 import { bootstrapPlugin } from "@elizaos/plugin-bootstrap";
 import { createNodePlugin } from "@elizaos/plugin-node";
 import { solanaPlugin } from "@elizaos/plugin-solana";
+import { webSearchPlugin } from "@elizaos/plugin-web-search";
 import fs from "fs";
 import net from "net";
 import path from "path";
@@ -49,17 +50,24 @@ export function createAgent(
 
   nodePlugin ??= createNodePlugin();
 
+  // Combine default plugins with character-specific plugins
+  const defaultPlugins = [
+    bootstrapPlugin,
+    nodePlugin,
+    webSearchPlugin,
+    character.settings?.secrets?.WALLET_PUBLIC_KEY ? solanaPlugin : null,
+    
+  ];
+
+  const characterPlugins = character.plugins || [];
+
   return new AgentRuntime({
     databaseAdapter: db,
     token,
     modelProvider: character.modelProvider,
     evaluators: [],
     character,
-    plugins: [
-      bootstrapPlugin,
-      nodePlugin,
-      character.settings?.secrets?.WALLET_PUBLIC_KEY ? solanaPlugin : null,
-    ].filter(Boolean),
+    plugins: [...defaultPlugins, ...characterPlugins].filter(Boolean),
     providers: [],
     actions: [],
     services: [],

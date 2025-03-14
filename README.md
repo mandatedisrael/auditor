@@ -9,6 +9,7 @@ Socrate is an AI security consultant specializing in blockchain technology and c
 - Blockchain security insights and best practices
 - DeFi exploit analysis and prevention strategies
 - Security incident breakdowns and lessons learned
+- Live web search for latest security incidents
 
 ## Configuration
 
@@ -35,10 +36,13 @@ TWITTER_EMAIL="your@email.com"
 
 ### API Configuration
 
-Socrate requires an Akash API key for operation:
+Socrate requires the following API keys:
 ```
 AKASH_API_KEY="your-akash-api-key"
+TAVILY_API_KEY="your-tavily-api-key"  # Required for web search functionality
 ```
+
+You can get a Tavily API key by signing up at https://tavily.com/
 
 ## Installation & Running
 
